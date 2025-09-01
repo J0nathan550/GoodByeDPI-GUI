@@ -1,0 +1,220 @@
+﻿<hc:Window
+    x:Class="GoodByeDPI_GUI.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:GoodByeDPI_GUI.Core.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:GoodByeDPI_GUI.Views"
+    Title="GoodByeDPI (GUI) - 1.0.0.0"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=views:MainWindow}"
+    Closing="Window_Closing"
+    Icon="/iconTray.ico"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <hc:Window.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </hc:Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <hc:NotifyIcon Click="OpenApplicationTrayMenu_Clicked" Text="GoodByeDPI-GUI">
+            <hc:NotifyIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Click="GithubRepository_Click" Header="GoodByeDPI (GUI) 1.0.0.0" />
+                    <Separator />
+                    <MenuItem Click="OpenApplicationTrayMenu_Clicked" Header="Открыть Приложение" />
+                    <MenuItem Click="CloseApplicationTrayMenu_Clicked" Header="Закрыть программу" />
+                </ContextMenu>
+            </hc:NotifyIcon.ContextMenu>
+        </hc:NotifyIcon>
+        <Menu Grid.Row="0" Height="auto">
+            <MenuItem Click="CheckAutoUpdates_Click">
+                <MenuItem.Header>
+                    <TextBlock Text="Check AutoUpdates..." TextTrimming="CharacterEllipsis" />
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Click="GithubRepository_Click">
+                <MenuItem.Header>
+                    <TextBlock Text="GitHub Repository..." TextTrimming="CharacterEllipsis" />
+                </MenuItem.Header>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="10">
+                <Button
+                    Name="UpdateDownloadGoodByeDPI"
+                    Height="32"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    Click="UpdateDownloadGoodByeDPI_Click"
+                    IsEnabled="{Binding IsDownloading, Converter={StaticResource InverseBooleanConverter}}">
+                    <TextBlock FontSize="14" Text="Обновить/Скачать GoodByeDPI Программу" />
+                </Button>
+
+                <Button
+                    Name="UpdateDNSGoodByeDPIButton"
+                    Height="32"
+                    Margin="0,10,0,0"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    Click="UpdateDNSGoodByeDPIButton_Click">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Обновить DNS Список для GoodByeDPI"
+                        ToolTip="Если какие-то сервисы (сайты) не работают можешь попробовать нажать на эту кнопку чтобы обновить список переадресации" />
+                </Button>
+
+                <Button
+                    Name="ButtonConfigurationEnableRussiaRedirects"
+                    Margin="0,10,0,0"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    Click="ButtonConfigurationEnableRussiaRedirects_Clicked"
+                    Cursor="Hand">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Запустить переадресации для обычных недоступных сайтов (россия)"
+                        TextTrimming="CharacterEllipsis" />
+                </Button>
+
+                <Button
+                    Name="ButtonConfigurationEnableYouTubeRedirects"
+                    Margin="0,10,0,0"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    Click="ButtonConfigurationEnableYouTubeRedirects_Clicked"
+                    Cursor="Hand">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Запустить переадресации для YouTube (россия)"
+                        TextTrimming="CharacterEllipsis" />
+                </Button>
+
+                <Button
+                    Name="ButtonConfigurationEnableYouTubeAlternative"
+                    Margin="0,10,0,0"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    Click="ButtonConfigurationEnableYouTubeAlternative_Clicked"
+                    Cursor="Hand">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Запустить переадресации для YouTube (альтернатива если не работает первый вариант) (россия)"
+                        TextTrimming="CharacterEllipsis" />
+                </Button>
+
+                <Button
+                    Name="ButtonConfigurationEnableEuropeRedirects"
+                    Margin="0,10,0,0"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    Click="ButtonConfigurationEnableEuropeRedirects_Clicked"
+                    Cursor="Hand">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Запустить переадресации для стран Европы (не для россии)"
+                        TextTrimming="CharacterEllipsis" />
+                </Button>
+
+                <Button
+                    Name="ButtonStopAllServices"
+                    Margin="0,10,0,0"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    Click="ButtonStopAllServices_Clicked"
+                    Cursor="Hand">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Остановить все процессы и не запускать GoodByeDPI при запуске приложения"
+                        TextTrimming="CharacterEllipsis" />
+                </Button>
+                <CheckBox
+                    Name="CheckBoxConfigurationAutoStartWithWindows"
+                    Margin="0,10,0,0"
+                    Click="CheckBoxConfigurationAutoStartWithWindows_Clicked">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Запускать GoodByeDPI при запуске компьютера"
+                        TextTrimming="CharacterEllipsis" />
+                </CheckBox>
+                <CheckBox
+                    Name="CheckBoxConfigurationMinimizeToTray"
+                    Margin="0,10,0,0"
+                    Click="CheckBoxConfigurationMinimizeToTray_Click">
+                    <TextBlock
+                        FontSize="14"
+                        Text="Скрыть приложение в Трей"
+                        TextTrimming="CharacterEllipsis" />
+                </CheckBox>
+            </StackPanel>
+            <GridSplitter
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="White" />
+            <Grid Grid.Column="2" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        Text="Статус приложения:"
+                        TextTrimming="CharacterEllipsis" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <TextBlock
+                            Name="InstalledVersionTextBlock"
+                            Margin="0,0.5,5,0"
+                            VerticalAlignment="Center"
+                            FontSize="11"
+                            Foreground="Gray" />
+
+                        <Button
+                            Name="ClearLogsButton"
+                            Background="#FF6B6B"
+                            BorderBrush="#FF5252"
+                            BorderThickness="1"
+                            Click="ClearLogs_Click"
+                            Foreground="White">
+                            <TextBlock FontSize="11" Text="Очистить логи" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <TextBox
+                    Name="StatusTextBox"
+                    Grid.Row="1"
+                    Margin="0,5,0,0"
+                    Padding="0"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Background="#F8F8F8"
+                    FontFamily="Consolas"
+                    FontSize="11"
+                    Foreground="#333333"
+                    HorizontalScrollBarVisibility="Auto"
+                    IsReadOnly="True"
+                    Text="{Binding StatusDisplay, Mode=OneWay}"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto" />
+            </Grid>
+        </Grid>
+    </Grid>
+</hc:Window>
